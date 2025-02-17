@@ -67,8 +67,4 @@ for i in range(len(newlist)):
 
 newlist = "\\".join(newlist)
 
-#Necesito crear una funcion o un for in que recorra cada palabra y 
-            
-
-
 print(newlist)
