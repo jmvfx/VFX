@@ -1,0 +1,42 @@
+import os
+
+# Get user input from the shell
+ustring = input("Insert your path: ")
+
+# Replacement dictionary (same as before)
+replacements = {
+    "Ñ": "N", "ñ": "n", "Á": "A", "á": "a", "É": "E", "é": "e", "Í": "I", "í": "i",
+    "Ó": "O", "ó": "o", "Ú": "U", "ú": "u", "Ü": "U", "ü": "u", "Ç": "C", "ç": "c",
+    "À": "A", "à": "a", "Â": "A", "â": "a", "È": "E", "è": "e", "Ê": "E", "ê": "e",
+    "Î": "I", "î": "i", "Ô": "O", "ô": "o", "Œ": "OE", "œ": "oe", "Ù": "U", "ù": "u",
+    "Û": "U", "û": "u", "Ÿ": "Y", "ÿ": "y", "Ä": "A", "ä": "a", "Ö": "O", "ö": "o",
+    "ß": "ss", "Ł": "L", "ł": "l", "Ą": "A", "ą": "a", "Ć": "C", "ć": "c", "Ę": "E",
+    "ę": "e", "Ś": "S", "ś": "s", "Ź": "Z", "ź": "z", "Ż": "Z", "ż": "z", "Č": "C",
+    "č": "c", "Ď": "D", "ď": "d", "Ě": "E", "ě": "e", "Ň": "N", "ň": "n", "Ř": "R",
+    "ř": "r", "Š": "S", "š": "s", "Ť": "T", "ť": "t", "Ů": "U", "ů": "u", "Ý": "Y",
+    "ý": "y", "Ž": "Z", "ž": "z",
+
+    # Illegal characters
+    "$": "", "%": "", "^": "", "&": "", "*": "", "(": "", ")": "",
+    "-": "_", "+": "", "=": "_", "[": "", "]": "", "{": "", "}": "",
+    "|": "", ";": "", ",": "", "<": "", ">": "", "?": "", "!": "",
+    "~": "", "`": "", ":": "", " ": "", "@": "a", '"': ""
+}
+
+# Detect OS and set the correct separator
+separator = "\\" if os.name == "nt" else "/"
+
+# Normalize path separators for cross-platform use
+separation = ustring.split(separator)
+
+# Process each part of the path
+for i in range(len(separation)):
+    separation[i] = separation[i].strip()  # Remove spaces
+
+    for illegal, rep in replacements.items():
+        separation[i] = separation[i].replace(illegal, rep)
+
+# Join parts back into a valid path
+new_path = separator.join(separation)
+
+print(new_path)
